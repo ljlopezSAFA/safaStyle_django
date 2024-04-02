@@ -1,0 +1,164 @@
+{% load static bulma_tags %}
+<html lang="ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SafaEat</title>
+    {% block css %}
+        {% font_awesome %}
+        <link rel="stylesheet" href="{% static 'bulma/css/style.min.css' %}">
+        {% block extra_css %}{% endblock extra_css %}
+
+
+        {# Cargamos la librería #}
+        {#        {% load bootstrap4 %}#}
+        {# Icons Bootstrap #}
+        {#        {% load bootstrap_icons %}#}
+        {##}
+        {# CSS Bootstrap #}
+        {#        {% bootstrap_css %}#}
+
+    {% endblock css %}
+
+<style>
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .navbar-menu {
+    display: flex;
+  }
+
+  .linea-azul {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #1f6278; /* Ajusta este color al del logo */
+    margin: 0 20px;
+  }
+
+  .image {
+    margin: 0 20px; /* Asegura un poco de espacio alrededor del logo si es necesario */
+  }
+</style>
+
+
+</head>
+
+{% block header %}
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+
+
+     <div class="linea-azul"></div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="{% url 'home_page' %}">
+                    Home
+                </a>
+                <a class="navbar-item" href="{% url 'items' %}">
+                    Catalog
+                </a>
+            </div>
+        </div>
+        <figure class="image is-128x128">
+            <img class="imageis-rounded" src="{% static 'logo.png' %}">
+        </figure>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="{% url 'about_us' %}">
+                    About Us
+                </a>
+                <a class="navbar-item" href="{% url 'items' %}">
+                    Best Sellers
+                </a>
+            </div>
+        </div>
+
+    <div class="linea-azul"></div>
+
+    </nav>
+
+    {#ADMINISTRADOR#}
+    {#        {% if user is not None and  user.rol == "Propietario" or user.rol == "Admin"  %}#}
+    {#            <div class="navbar-item has-dropdown is-hoverable">#}
+    {#                <a class="navbar-link">#}
+    {#                    Administración#}
+    {#                </a>#}
+    {##}
+    {#                <div class="navbar-dropdown">#}
+    {#                    <a class="navbar-item" href="{% url 'crear_restaurante' %}" >#}
+    {#                        Restaurantes#}
+    {#                    </a>#}
+    {#                    <a class="navbar-item">#}
+    {#                        Productos#}
+    {#                    </a>#}
+    {#                    <a class="navbar-item">#}
+    {#                        Sitios#}
+    {#                    </a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        {% endif %}#}
+    {##}
+    {#CLIENTE#}
+    {#        {% if user is not None and  user.rol == "Cliente" %}#}
+    {#            <div class="navbar-item has-dropdown is-hoverable">#}
+    {#                <a class="navbar-link">#}
+    {#                    Mi Actividad#}
+    {#                </a>#}
+    {##}
+    {#                <div class="navbar-dropdown">#}
+    {#                    <a class="navbar-item">#}
+    {#                        Favoritos#}
+    {#                    </a>#}
+    {#                    <a class="navbar-item">#}
+    {#                        Mis Pedidos#}
+    {#                    </a>#}
+    {#                    <a class="navbar-item" href="{% url 'reservas' %}">#}
+    {#                        Mis Reservas#}
+    {#                    </a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        {% endif %}#}
+    {##}
+    {##}
+    {##}
+    {##}
+    {##}
+    {##}
+    {#    </div>#}
+    {##}
+    {##}
+    {##}
+    {#    <div class="navbar-end">#}
+    {#      <div class="navbar-item">#}
+    {#        <div class="buttons">#}
+    {#         {% if user is not None and  user.rol == "Cliente" %}#}
+    {#              <a class="button is-primary" href="{% url 'ver_carrito' %}">#}
+    {#                <i>{% bs_icon 'cart' %}</i>#}
+    {#            </a>#}
+    {#         {% endif %}#}
+    {#            <a class="button is-primary" href="{% url 'register' %}">#}
+    {#                Registro#}
+    {#            </a>#}
+    {#            {% if user.is_authenticated %}#}
+    {#                <a class="button is-primary" href="{% url 'logout' %}">#}
+    {#                    Log out#}
+    {#                </a>#}
+    {#            {% else %}#}
+    {#               <a class="button is-light" href="{% url 'login' %}">#}
+    {#                    Log in#}
+    {#                </a>#}
+    {#            {% endif %}#}
+    {#        </div>#}
+    {#      </div>#}
+    {#    </div>#}
+    {#  </div>#}
+    {#</nav>#}
+{% endblock header %}
+
+
+</html>
+

@@ -1,0 +1,57 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+<br>
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">List Items</p>
+</div>
+
+<br>
+
+
+
+
+<div class="columns">
+
+    {% for i in items %}
+
+
+        <div class="column is-one-quarter">
+
+            <div class="card" style="min-height: 225px">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-128x128">
+                                <img class="is-rounded" src="{{ i.image }}" alt="">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">{{ i.name }}</p>
+                            <p class="subtitle is-6">{{ i.size.name }}</p>
+                            <div class="content">
+                                {{ i.description }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+</div>
+<br>
+
+
+
+<div class="columns is-mobile is-centered">
+  <div class="column is-half is-centered has-text-centered">
+         <a href="{% url 'new_item' %}">
+            <button class="button is-info is-light"> New Item</button>
+        </a>
+  </div>
+</div>
+

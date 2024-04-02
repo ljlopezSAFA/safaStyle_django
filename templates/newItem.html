@@ -1,0 +1,90 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+<br><br>
+
+
+
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">New Item</p>
+</div>
+
+<br><br>
+
+
+
+<div class="columns is-mobile is-centered">
+
+
+        <div class="column is-half">
+
+
+            <form action="" method="post">
+
+                {% csrf_token %}
+
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="name" class="subtitle is-5"> Name</label>
+                    </div>
+                    <div class="column">
+                        <input id="name" name="name" type="text" class="input" placeholder="">
+                    </div>
+                </div>
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="description" class="subtitle is-5"> Description</label>
+                    </div>
+                    <div class="column">
+                        <input id="description" name="description" type="text" class="input" placeholder="">
+                    </div>
+                </div>
+
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="price" class="subtitle is-5"> Price</label>
+                    </div>
+                    <div class="column">
+                        <input id="price" name="price" type="text" class="input" placeholder="">
+                    </div>
+                </div>
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="image" class="subtitle is-5"> Image url</label>
+                    </div>
+                    <div class="column">
+                        <input id="image" name="image" type="text" class="input" placeholder="">
+                    </div>
+                </div>
+
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="size" class="subtitle is-5"> Size</label>
+                    </div>
+                    <div class="column">
+                        <div class="select">
+                            <select id="size" name="size">
+                                {% for s in sizes %}
+                                    <option value="{{ s.id }}">{{ s }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br><br><br>
+
+                <div class="columns is-mobile is-centered">
+                    <input class="button is-info is-light" type="submit">
+                </div>
+
+
+            </form>
+    </div>
+</div>
