@@ -1,0 +1,104 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">New Employee</p>
+</div>
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+
+
+    <div class="column is-half">
+
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="fullname" class="subtitle is-5"> FullName</label>
+                </div>
+                <div class="column">
+                    <input id="fullname" name="fullname" type="text" class="input" placeholder=""
+                           value="{{ employee.fullname }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="birthdate" class="subtitle is-5"> BirthDate</label>
+                </div>
+                <div class="column">
+                    <input id="birthdate" name="birthdate" type="date" class="input" placeholder=""
+                           value="{{ employee.birth_date|date:'Y-m-d' }}">
+                </div>
+            </div>
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="mail" class="subtitle is-5"> Mail</label>
+                </div>
+                <div class="column">
+                    <input id="mail" name="mail" type="text" class="input" placeholder="" value="{{ employee.mail }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="dni" class="subtitle is-5"> DNI</label>
+                </div>
+                <div class="column">
+                    <input id="dni" name="dni" type="text" class="input" placeholder="" value="{{ employee.dni }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="image" class="subtitle is-5"> Image</label>
+                </div>
+                <div class="column">
+                    <input id="image" name="image" type="text" class="input" placeholder=""
+                           value="{{ employee.image_url }}">
+                </div>
+            </div>
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="shop" class="subtitle is-5"> Shop</label>
+                </div>
+                <div class="column">
+                    <div class="select">
+                        <select id="shop" name="shop" multiple>
+                            {% for s in shops %}
+                                {% if s.id in id_tiendas %}
+                                    <option value="{{ s.id }}" selected>{{ s.name }}</option>
+                                {% else  %}
+                                    <option value="{{ s.id }}">{{ s.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <br><br><br>
+
+            <div class="columns is-mobile is-centered">
+                <input class="button is-info is-light" type="submit">
+            </div>
+
+
+        </form>
+    </div>
+</div>

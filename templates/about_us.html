@@ -1,12 +1,72 @@
-
 {% include "barra_navegacion.html" %}
 {% load static %}
 
+<style>
+
+     .questrial-regular {
+            font-family: "Questrial", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+        }
+
+</style>
+
 
 <div class="columns is-mobile is-centered">
-  <div class="column is-half has-text-centered">
-      <H1 class="title" style="padding-right: 30px">Meet our company</H1>
+    <div class="column is-half has-text-centered">
 
-  </div>
+
+        <section class="section">
+              <H1 class="title" style="padding-right: 30px">About Us</H1>
+            <div class="container">
+                <p class="questrial-regular">SafaStyle is a forward-thinking clothing store that has been dedicated to offering high-quality and
+                    trendy products since 2010. With a deep commitment to customer service and innovation, we have grown
+                    from a small boutique to a leading fashion destination.</p>
+
+                <!-- Image of the storefront or a key fashion piece -->
+                <figure class="image is-2by2" style="padding-top: 20px; padding-bottom: 20px;">
+                    <img src="{% static 'about_us_img_1.jpg' %}" class="is-rounded" alt="SafaStyle Storefront">
+                </figure>
+
+                <h2 class="title">Our Journey</h2>
+                <p class="questrial-regular">Our journey began in the heart of the fashion district, driven by a passion for style and a vision to
+                    make high fashion accessible. Over the years, we've curated collections from around the world,
+                    bringing together classic styles and cutting-edge designs.</p>
+
+                <!-- Image of a memorable fashion event or collection -->
+                <figure class="image is-2by2" style="padding-top: 20px; padding-bottom: 20px;">
+                    <img src="{% static 'about_us_img_2.jpg' %}" class="is-rounded" alt="Memorable Fashion Event">
+                </figure>
+
+                <h2 class="title">Meet the Team</h2>
+                <p class="questrial-regular">Behind every piece of clothing at SafaStyle is a team of creative and dedicated professionals. From
+                    our designers to our customer service staff, each member brings their unique talent and passion for
+                    fashion to the forefront, ensuring every visit to SafaStyle is memorable.</p>
+
+                <!-- Image of the team or a team member -->
+                <figure class="image is-2by2" style="padding-top: 20px; padding-bottom: 20px;">
+                    <img src="{% static 'about_us_img_3.jpg' %}" class="is-rounded" alt="Our Team">
+                </figure>
+
+                <h2 class="title">Commitment to Sustainability</h2>
+                <p class="questrial-regular">We believe in fashion that not only looks good but also does good. SafaStyle is committed to
+                    sustainability, from sourcing eco-friendly materials to minimizing waste in our operations. Join us
+                    in making a positive impact on the world, one garment at a time.</p>
+
+                <!-- Image related to sustainability efforts -->
+                <figure class="image is-2by2" style="padding-top: 20px; padding-bottom: 20px;">
+                    <img src="{% static 'about_us_img_5.jpg' %}" class="is-rounded" alt="Sustainability at SafaStyle">
+                </figure>
+
+                <p class="questrial-regular">We invite you to explore our collections and be part of our journey. Your style, our passion—let's
+                    create beautiful fashion together.</p>
+            </div>
+        </section>
+
+
+    </div>
 </div>
+
+{% include "footeer.html" %}
 
