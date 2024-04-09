@@ -1,0 +1,90 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+<div class="columns is-mobile is-centered">
+
+    <div class="column is-half">
+        <div class="card">
+
+ <br><br>
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">Register</p>
+</div>
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+
+    <div class="column is-three-quarters">
+
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="username" class="subtitle is-5"> Username</label>
+                </div>
+                <div class="column">
+                    <input id="username" name="username" type="text" class="input" placeholder="" value="{{ username }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="mail" class="subtitle is-5">Mail</label>
+                </div>
+                <div class="column">
+                    <input id="mail" name="mail" type="email" class="input" placeholder="">
+                </div>
+            </div>
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="password" class="subtitle is-5">Password</label>
+                </div>
+                <div class="column">
+                    <input id="password" name="password" type="password" class="input" placeholder="">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="repeatPassword" class="subtitle is-5">Repeat Password</label>
+                </div>
+                <div class="column">
+                    <input id="repeatPassword" name="repeatPassword" type="password" class="input" placeholder="">
+                </div>
+            </div>
+
+
+            <br>
+
+            <div class="columns is-mobile is-centered">
+                <input class="button is-info is-light" type="submit" value="Save">
+            </div>
+
+
+        </form>
+
+        {% for e in errores %}
+
+            <p style="color: red">{{ e }}</p>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+{% include "footeer.html" %}
+

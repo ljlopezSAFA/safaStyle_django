@@ -49,34 +49,58 @@
 
 
         <div id="navbarBasicExample" class="navbar-menu">
+
             <div class="navbar-end">
-                <a class="navbar-item" href="{% url 'home_page' %}">
-                    Home
-                </a>
-                <a class="navbar-item" href="{% url 'items' %}">
-                    Catalog
-                </a>
-                  <a class="navbar-item" href="{% url 'list_employees' %}">
-                    Info
-                </a>
+
+                {% if user.is_authenticated %}
+                    <a class="navbar-item" href="{% url 'home_page' %}">
+                        Home
+                    </a>
+                    <a class="navbar-item" href="{% url 'items' %}">
+                        Catalog
+                    </a>
+                    <a class="navbar-item" href="{% url 'list_employees' %}">
+                        Employees
+                    </a>
+
+                {% else %}
+                    <a class="navbar-item" href="{% url 'register' %}">
+                        Register
+                    </a>
+
+
+                {% endif %}
+
             </div>
+
         </div>
+
+
         <figure class="image is-128x128">
             <img class="imageis-rounded" src="{% static 'logo.png' %}">
         </figure>
+
+
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{% url 'about_us' %}">
-                    About Us
-                </a>
-                <a class="navbar-item" href="{% url 'shops' %}">
-                    Shops
-                </a>
-                  <a class="navbar-item" href="{% url 'list_employees' %}">
-                    Employees
-                </a>
+                {% if user.is_authenticated %}
+                    <a class="navbar-item" href="{% url 'about_us' %}">
+                        About Us
+                    </a>
+                    <a class="navbar-item" href="{% url 'shops' %}">
+                        Shops
+                    </a>
+                    <a class="navbar-item" href="{% url 'logout' %}">
+                        Logout
+                    </a>
+                {% else %}
+                    <a class="navbar-item" href="{% url 'login' %}">
+                        Login
+                    </a>
+                {% endif %}
             </div>
         </div>
+
 
         <div class="linea-azul"></div>
 

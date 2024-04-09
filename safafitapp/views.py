@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from .models import *
 
@@ -126,3 +128,78 @@ def edit_shop(request, id):
         shop.address = request.POST.get('address')
         shop.save()
         return redirect('/safafit/shop')
+
+
+
+def register_user(request):
+    if request.method == "GET":
+        return render(request, "register.html")
+    else:
+        username = request.POST.get('username')
+        mail = request.POST.get('mail')
+        password = request.POST.get('password')
+        passwaord2 = request.POST.get('repeatPassword')
+
+        errors = []
+
+        if password != passwaord2:
+            errors.append("Las contraseñas no coinciden")
+        existe_usuario = User.objects.filter(username=username).exists()
+        if existe_usuario:
+            errors.append("Ya existe un usuario con ese nombre")
+        existe_mail = User.objects.filter(email=mail).exists()
+        if existe_mail:
+            errors.append("Ya existe un usuario con ese email")
+
+        if len(errors) != 0:
+            return render(request, "register.html", {"errores":errors, "username": username})
+        else:
+            user = User.objects.create(username=username, password=make_password(password), email=mail)
+            user.save()
+
+            return redirect('home_page')
+
+
+def do_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            # Redirección tras un login exitoso
+            return redirect('home_page')
+        else:
+            # Mensaje de error si la autenticación falla
+            return render(request, 'login.html',{"error": "No se ha podido iniciar sesión intentalo de nuevo"})
+
+    # Mostrar formulario de login para método GET
+    return render(request, 'login.html')
+
+
+def do_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+def create_employee_user(request, id):
+    employee = Employee.objects.get(id=id)
+    if employee.user is None:
+        user = User()
+        user.username = employee.fullname.replace(" ", "")
+        user.email = employee.mail
+        user.password = make_password(employee.dni)
+        user.rol = Role.EMPLOYEE
+        user.save()
+        return redirect('login')
+    else:
+        return redirect('list_employees')
+
+
+
+
+
+

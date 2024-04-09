@@ -14,6 +14,10 @@ urlpatterns = [
     path('employees/new',new_employee , name='new_employee'),
     path('employees/delete/<int:id>/', delete_employee , name='delete_employee'),
     path('employees/edit/<int:id>/', edit_employee, name='edit_employee'),
+    path('register/', register_user, name='register'),
+    path('login/', do_login, name='login'),
+    path('logout/', do_logout, name='logout'),
+    path('employees/user/<int:id>/', create_employee_user, name='add_user'),
 
 ]
 
