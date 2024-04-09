@@ -15,51 +15,53 @@
         <div class="columns"> <!-- Abrir un nuevo contenedor columns cada 3 elementos -->
     {% endif %}
 
-    <div class="column is-one-third"> <!-- Cambiar a is-one-third para 3 elementos por fila -->
+<div class="column is-one-third"> <!-- Cambiar a is-one-third para 3 elementos por fila -->
 
-        <div class="card" style="min-height: 225px">
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-left">
-                        <figure class="image is-128x128">
-                            <img class="is-rounded" src="{{ e.image_url }}" alt="">
-                        </figure>
-                    </div>
-                    <div class="media-content">
-                        <p class="title is-4">{{ e.fullname }}</p>
-                        <p class="subtitle is-6">{{ e.birth_date|date:'Y-m-d'}}</p>
-                        <div class="content">
-                            {{ e.dni }}
-                            {{ e.mail }}
-                        </div>
+    <div class="card" style="min-height: 225px">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-128x128">
+                        <img class="is-rounded" src="{{ e.image_url }}" alt="">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">{{ e.fullname }}</p>
+                    <p class="subtitle is-6">{{ e.birth_date|date:'Y-m-d' }}</p>
+                    <div class="content">
+                        {{ e.dni }}
+                        {{ e.mail }}
                     </div>
                 </div>
             </div>
+        </div>
 
-             <a href="{% url 'edit_employee' id=e.id %}" >
+        <div class="columns is-mobile is-centered">
+            <a href="{% url 'edit_employee' id=e.id %}">
                 <button class="button is-light"> Editar</button>
             </a>
-            <a href="{% url 'delete_employee' id=e.id %}" >
+            <a href="{% url 'delete_employee' id=e.id %}">
                 <button class="button is-light"> Eliminar</button>
             </a>
-
         </div>
-    </div>
 
-    {% if forloop.last %}
-        </div> <!-- Asegurarse de cerrar el contenedor columns al final -->
-    {% endif %}
+
+    </div>
+</div>
+
+{% if forloop.last %}
+    </div> <!-- Asegurarse de cerrar el contenedor columns al final -->
+{% endif %}
 {% endfor %}
 <br>
 
 
-
 <div class="columns is-mobile is-centered">
-  <div class="column is-half is-centered has-text-centered">
-         <a href="{% url 'new_employee' %}">
+    <div class="column is-half is-centered has-text-centered">
+        <a href="{% url 'new_employee' %}">
             <button class="button is-info is-light is-rounded"> New Employee</button>
         </a>
-  </div>
+    </div>
 </div>
 
 {% include "footeer.html" %}
