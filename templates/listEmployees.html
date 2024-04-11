@@ -37,15 +37,21 @@
         </div>
 
         <div class="columns is-mobile is-centered">
-            <a href="{% url 'edit_employee' id=e.id %}">
-                <button class="button is-light"> Editar</button>
-            </a>
-            <a href="{% url 'delete_employee' id=e.id %}">
-                <button class="button is-light"> Eliminar</button>
-            </a>
-            <a href="{% url 'add_user' id=e.id %}">
-                <button class="button is-light"> Asignar Usuario</button>
-            </a>
+            <div class="column is-align-items-center is-justify-content-center is-flex">
+                <a href="{% url 'edit_employee' id=e.id %}">
+                    <button class="button is-light"> Editar</button>
+                </a>
+            </div>
+            <div class="column is-align-items-center is-justify-content-center is-flex">
+                <a href="{% url 'delete_employee' id=e.id %}">
+                    <button class="button is-light"> Eliminar</button>
+                </a>
+            </div>
+            <div class="column is-align-items-center is-justify-content-center is-flex">
+                <a href="{% url 'add_user' id=e.id %}">
+                    <button class="button is-light">Usuario</button>
+                </a>
+            </div>
         </div>
 
 
