@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from .models import *
+from .decorators import *
 
 
 # Create your views here.
@@ -20,7 +21,7 @@ def show_shops(request):
 
 def list_employees(request):
     list_employees = Employee.objects.all()
-    return render(request, 'listEmployees.html', {'employees':list_employees })
+    return render(request, 'listEmployees.html', {'employees': list_employees})
 
 
 def list_items(request):
@@ -28,6 +29,7 @@ def list_items(request):
     return render(request, 'listItem.html', {'items': list_items})
 
 
+@check_user_roles(['ADMIN', 'EMPLOYEE'])
 def new_item(request):
     if request.method == 'GET':
         sizes = Size.objects.all()
@@ -43,6 +45,7 @@ def new_item(request):
         return redirect('/safafit/items')
 
 
+@check_user_role('ADMIN')
 def new_employee(request):
     if request.method == 'GET':
         shops = Shop.objects.all()
@@ -56,7 +59,6 @@ def new_employee(request):
         new.birth_date = request.POST.get('birthdate')
         new.save()
 
-
         list_shops = request.POST.getlist('shop')
 
         for s in list_shops:
@@ -65,6 +67,8 @@ def new_employee(request):
 
         return redirect('/safafit/employees')
 
+
+@check_user_role('ADMIN')
 def edit_employee(request, id):
     employee = Employee.objects.get(id=id)
     if request.method == "GET":
@@ -90,35 +94,33 @@ def edit_employee(request, id):
         return redirect('/safafit/employees')
 
 
-
-
-
-def delete_employee(request,id):
+@check_user_role('ADMIN')
+def delete_employee(request, id):
     employee = Employee.objects.get(id=id)
     employee.delete()
     return redirect('/safafit/employees')
 
 
-
-
-def delete_shop(request,id):
+@check_user_role('ADMIN')
+def delete_shop(request, id):
     shop = Shop.objects.get(id=id)
     shop.delete()
     return redirect('/safafit/shop/')
 
 
-
+@check_user_role('ADMIN')
 def new_shop(request):
     if request.method == 'GET':
         return render(request, 'newShop.html')
     else:
-        new_shop= Shop()
+        new_shop = Shop()
         new_shop.name = request.POST.get('name')
         new_shop.address = request.POST.get('address')
         new_shop.save()
         return redirect('/safafit/shop')
 
 
+@check_user_role('ADMIN')
 def edit_shop(request, id):
     shop = Shop.objects.get(id=id)
     if request.method == 'GET':
@@ -128,7 +130,6 @@ def edit_shop(request, id):
         shop.address = request.POST.get('address')
         shop.save()
         return redirect('/safafit/shop')
-
 
 
 def register_user(request):
@@ -152,7 +153,7 @@ def register_user(request):
             errors.append("Ya existe un usuario con ese email")
 
         if len(errors) != 0:
-            return render(request, "register.html", {"errores":errors, "username": username})
+            return render(request, "register.html", {"errores": errors, "username": username})
         else:
             user = User.objects.create(username=username, password=make_password(password), email=mail)
             user.save()
@@ -174,7 +175,7 @@ def do_login(request):
             return redirect('home_page')
         else:
             # Mensaje de error si la autenticación falla
-            return render(request, 'login.html',{"error": "No se ha podido iniciar sesión intentalo de nuevo"})
+            return render(request, 'login.html', {"error": "No se ha podido iniciar sesión intentalo de nuevo"})
 
     # Mostrar formulario de login para método GET
     return render(request, 'login.html')
@@ -185,6 +186,7 @@ def do_logout(request):
     return redirect('login')
 
 
+@check_user_role('ADMIN')
 def create_employee_user(request, id):
     employee = Employee.objects.get(id=id)
     if employee.user is None:
@@ -199,7 +201,5 @@ def create_employee_user(request, id):
         return redirect('list_employees')
 
 
-
-
-
-
+def permision_error_page(request):
+    return render(request, 'permision_error.html')

@@ -18,6 +18,7 @@ urlpatterns = [
     path('login/', do_login, name='login'),
     path('logout/', do_logout, name='logout'),
     path('employees/user/<int:id>/', create_employee_user, name='add_user'),
+    path('permision/error', permision_error_page, name='permision_error'),
 
 ]
 

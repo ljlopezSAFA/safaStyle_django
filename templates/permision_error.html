@@ -1,0 +1,20 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half is-align-items-center is-justify-content-center  is-flex ">
+            <h1 class="title has-text-danger">¡No tienes permiso para acceder a esta página!</h1>
+        </div>
+    </div>
+
+    <div class="columns is-mobile is-centered">
+
+        <div class="column is-half is-align-items-center is-justify-content-center is-flex ">
+            <img src="{% static 'policia.gif' %}">
+        </div>
+    </div>
+{% endblock content %}
+
+{% include "footeer.html" %}
