@@ -15,43 +15,58 @@
         <div class="columns"> <!-- Abrir un nuevo contenedor columns cada 3 elementos -->
     {% endif %}
 
-    <div class="column is-one-third"> <!-- Cambiar a is-one-third para 3 elementos por fila -->
+<div class="column is-one-third"> <!-- Cambiar a is-one-third para 3 elementos por fila -->
 
-        <div class="card" style="min-height: 225px">
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-left">
-                        <figure class="image is-128x128">
-                            <img class="is-rounded" src="{{ i.image }}" alt="">
-                        </figure>
-                    </div>
-                    <div class="media-content">
-                        <p class="title is-4">{{ i.name }}</p>
-                        <p class="subtitle is-6">{{ i.size.name }}</p>
-                        <div class="content">
-                            {{ i.description }}
-                        </div>
+    <div class="card" style="min-height: 225px">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-128x128">
+                        <img class="is-rounded" src="{{ i.image }}" alt="">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">{{ i.name }}</p>
+                    <p class="subtitle is-6">{{ i.size.name }}</p>
+                    <div class="content">
+                        {{ i.description }}
                     </div>
                 </div>
             </div>
+
+            <div class="is-justify-content-end is-align-content-end is-flex">
+                <a href="{% url 'shop_delete'  id=i.id %} " class="has-text-dark">
+                                <span class="icon is-large">
+                                    <i class="fa fa-border fa-shopping-cart"></i>
+                                </span>
+                </a>
+            </div>
         </div>
     </div>
+</div>
 
-    {% if forloop.last %}
-        </div> <!-- Asegurarse de cerrar el contenedor columns al final -->
-    {% endif %}
+{% if forloop.last %}
+    </div> <!-- Asegurarse de cerrar el contenedor columns al final -->
+{% endif %}
 {% endfor %}
 <br>
 
 
+{% if  user.is_authenticated %}
 
-<div class="columns is-mobile is-centered">
-  <div class="column is-half is-centered has-text-centered">
-         <a href="{% url 'new_item' %}">
-            <button class="button is-info is-light is-rounded"> New Item</button>
-        </a>
-  </div>
-</div>
+    {% if user.rol == 'ADMIN' %}
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half is-centered has-text-centered">
+                <a href="{% url 'new_item' %}">
+                    <button class="button is-info is-light is-rounded"> New Item</button>
+                </a>
+            </div>
+
+        </div>
+    {% endif %}
+
+
+{% endif %}
 
 {% include "footeer.html" %}
 

@@ -33,6 +33,14 @@
             margin: 0 20px;
         }
 
+       .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea el logo en la parte superior */
+            height: 100%;
+            margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+        }
+
         .image {
             margin: 0 20px;
         }
@@ -54,16 +62,35 @@
 
                 {% if user.is_authenticated %}
                     {% if user.rol == 'CUSTOMER' %}
-                        <a class="navbar-item" href="{% url 'home_page' %}">
-                            Home
-                        </a>
-                        <a class="navbar-item" href="{% url 'items' %}">
-                            Catalog
-                        </a>
-                        <a class="navbar-item" href="{% url 'list_employees' %}">
-                            Employees
-                        </a>
+
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Style Yourself
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="{% url 'items' %}">
+                                    Catalog
+                                </a>
+                            </div>
+                        </div>
+                    {% elif user.rol == 'ADMIN' %}
+
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Admin Actions
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="{% url 'items' %}">
+                                    Catalog
+                                </a>
+                            </div>
+                        </div>
+
                     {% endif %}
+
+
 
                 {% else %}
                     <a class="navbar-item" href="{% url 'register' %}">
@@ -78,9 +105,16 @@
         </div>
 
 
-        <figure class="image is-128x128">
-            <img class="imageis-rounded" src="{% static 'logo.png' %}">
-        </figure>
+        <!-- Logo Container -->
+        <div class="logo-container">
+            <figure class="image is-128x128">
+                <a href="{% url 'home_page' %}">
+                    <img class="imageis-rounded" src="{% static 'logo.png' %}">
+                </a>
+
+            </figure>
+
+        </div>
 
 
         <div id="navbarBasicExample" class="navbar-menu">
@@ -89,9 +123,11 @@
                     <a class="navbar-item" href="{% url 'about_us' %}">
                         About Us
                     </a>
-                    <a class="navbar-item" href="{% url 'shops' %}">
-                        Shops
-                    </a>
+                    {% if user.rol == 'ADMIN' %}
+                        <a class="navbar-item" href="{% url 'shops' %}">
+                            Shops
+                        </a>
+                    {% endif %}
                     <a class="navbar-item" href="{% url 'logout' %}">
                         Logout
                     </a>

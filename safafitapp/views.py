@@ -14,6 +14,7 @@ def show_about_us_page(request):
     return render(request, 'about_us.html')
 
 
+@check_user_role('ADMIN')
 def show_shops(request):
     list_shops = Shop.objects.all()
     return render(request, 'list_shops.html', {'shops': list_shops})
