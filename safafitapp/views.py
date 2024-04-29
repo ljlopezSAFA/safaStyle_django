@@ -204,3 +204,41 @@ def create_employee_user(request, id):
 
 def permision_error_page(request):
     return render(request, 'permision_error.html')
+
+
+def add_to_cart(request, id):
+    cart = {}
+
+    # Comprobar si hay ya un carrito en sesión
+    if "cart" in request.session:
+        cart = request.session.get("cart", {})
+
+    # Comprobar que el producto está o no está en el carrito
+    if str(id) in cart.keys():
+        cart[str(id)] = cart[str(id)] + 1
+    else:
+        cart[str(id)] = 1
+
+    request.session["cart"] = cart
+
+    return redirect('items')
+
+
+def show_cart(request):
+    cart = {}
+    session_cart = {}
+    total = 0.0
+
+    if 'cart' in request.session:
+        session_cart = request.session.get('cart', {})
+
+    for key in session_cart.keys():
+        product = Item.objects.get(id=key)
+        amount = session_cart[key]
+        cart[product] = amount
+        total += amount * product.price
+
+    return render(request, 'cart.html', {'cart': cart, 'total': total})
+
+
+

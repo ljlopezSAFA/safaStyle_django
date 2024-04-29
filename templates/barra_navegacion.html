@@ -33,7 +33,7 @@
             margin: 0 20px;
         }
 
-       .logo-container {
+        .logo-container {
             display: flex;
             justify-content: center;
             align-items: flex-start; /* Alinea el logo en la parte superior */
@@ -120,16 +120,20 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 {% if user.is_authenticated %}
-                    <a class="navbar-item" href="{% url 'about_us' %}">
-                        About Us
-                    </a>
                     {% if user.rol == 'ADMIN' %}
                         <a class="navbar-item" href="{% url 'shops' %}">
                             Shops
                         </a>
                     {% endif %}
+                    <a class="navbar-item" href="{% url 'show_cart'  %}">
+                              <span class="icon is-large">
+                                  <i class="fas fa-shopping-cart"></i>
+                                </span>
+                    </a>
                     <a class="navbar-item" href="{% url 'logout' %}">
-                        Logout
+                              <span class="icon is-large">
+                                  <i class="fas fa-arrow-right"></i>
+                                </span>
                     </a>
                 {% else %}
                     <a class="navbar-item" href="{% url 'login' %}">
