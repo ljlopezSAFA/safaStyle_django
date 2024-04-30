@@ -1,0 +1,117 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">New Employee</p>
+</div>
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+
+
+    <div class="column is-half">
+
+        {% if modified %}
+            <div id="message" class="has-text-success has-text-centered">
+                <p><b>Profile modified1</b></p>
+            </div>
+
+            <script>
+                setTimeout(function () {
+                    document.getElementById("message").style.display = "none";
+                }, 3000);
+            </script>
+        {% endif %}
+
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="fullname" class="subtitle is-5">Name</label>
+                </div>
+                <div class="column">
+                    <input id="name" name="name" type="text" class="input" placeholder=""
+                           value="{{ customer.name }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="fullname" class="subtitle is-5"> Surname</label>
+                </div>
+                <div class="column">
+                    <input id="surname" name="surname" type="text" class="input" placeholder=""
+                           value="{{ customer.surname }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="birthdate" class="subtitle is-5"> BirthDate</label>
+                </div>
+                <div class="column">
+                    <input id="birth_date" name="birth_date" type="date" class="input" placeholder=""
+                           value="{{ customer.birth_date|date:'Y-m-d' }}">
+                </div>
+            </div>
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="mail" class="subtitle is-5"> Mail</label>
+                </div>
+                <div class="column">
+                    <input id="mail" name="mail" type="text" class="input" placeholder="" value="{{ customer.mail }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="dni" class="subtitle is-5"> DNI</label>
+                </div>
+                <div class="column">
+                    <input id="dni" name="dni" type="text" class="input" placeholder="" value="{{ customer.dni }}">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="image" class="subtitle is-5"> Image</label>
+                </div>
+                <div class="column">
+                    <input id="image" name="image" type="text" class="input" placeholder=""
+                           value="{{ customer.image_url }}">
+                </div>
+            </div>
+
+
+            <br><br><br>
+
+
+
+
+            {% if not edit %}
+                <div class="columns is-mobile is-centered">
+                    <input class="button is-info is-light" type="submit" name="save_profile" value="save_profile">
+                </div>
+
+            {% endif %}
+
+            {% if edit %}
+                <div class="columns is-mobile is-centered">
+                    <input class="button is-info is-light" type="submit" name="edit_profile" value="edit_profile">
+                </div>
+            {% endif %}
+
+        </form>
+    </div>
+</div>

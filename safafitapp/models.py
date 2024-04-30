@@ -75,6 +75,7 @@ class Customer(models.Model):
     dni = models.CharField(max_length=9)
     mail = models.CharField(max_length=500)
     image_url = models.CharField(max_length=900)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, default= None)
 
     def __str__(self):
         return str(self.id) + " - " + self.name + " , " + self.surname

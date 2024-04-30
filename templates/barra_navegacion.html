@@ -125,16 +125,35 @@
                             Shops
                         </a>
                     {% endif %}
-                    <a class="navbar-item" href="{% url 'show_cart'  %}">
+                    <a class="navbar-item" href="{% url 'show_cart' %}">
                               <span class="icon is-large">
                                   <i class="fas fa-shopping-cart"></i>
                                 </span>
                     </a>
-                    <a class="navbar-item" href="{% url 'logout' %}">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
                               <span class="icon is-large">
+                                  <i class="fas fa-solid fa-user"></i>
+                                </span>
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="{% url 'customer_profile' %}">
+                                <span class="icon is-large">
+                                  <i class="fas fa-address-card"></i>
+                                </span>
+                                Customer Profile
+                            </a>
+                            <a class="navbar-item" href="{% url 'logout' %}">
+                                 <span class="icon is-large">
                                   <i class="fas fa-arrow-right"></i>
                                 </span>
-                    </a>
+                                Logout
+
+                            </a>
+                        </div>
+                    </div>
+
                 {% else %}
                     <a class="navbar-item" href="{% url 'login' %}">
                         Login

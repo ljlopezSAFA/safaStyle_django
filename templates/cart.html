@@ -49,8 +49,11 @@
                 {% endfor %}
 
                 <tr>
+                    <td></td>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
                     <td>
-                        {{ total }}
+                        <b>{{ total }}</b>
                     </td>
                 </tr>
 
@@ -69,7 +72,7 @@
         <div class="column is-half is-offset-one-quarter"
              style="justify-content: center;  align-items:  center; display: flex;">
 
-            <a href="{% url 'shop_new' %}">
+            <a href="{% url 'buy' %}">
                 <button class="button is-info is-light is-rounded"> Buy</button>
             </a>
 

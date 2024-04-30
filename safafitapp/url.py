@@ -20,6 +20,8 @@ urlpatterns = [
     path('employees/user/<int:id>/', create_employee_user, name='add_user'),
     path('permision/error', permision_error_page, name='permision_error'),
     path('cart/add/<int:id>', add_to_cart, name='add_to_cart'),
-    path('show/cart', show_cart, name='show_cart')
+    path('show/cart', show_cart, name='show_cart'),
+    path('customer/profile', customer_profile, name='customer_profile'),
+    path('buy/', buy, name='buy')
 
 ]

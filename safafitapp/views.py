@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
@@ -239,6 +242,74 @@ def show_cart(request):
         total += amount * product.price
 
     return render(request, 'cart.html', {'cart': cart, 'total': total})
+
+
+def customer_profile(request):
+    logged_user = User.objects.get(username=request.user.username)
+    customer = None
+
+    if logged_user is not None and logged_user.rol == Role.CUSTOMER:
+        customers = Customer.objects.filter(user=logged_user)
+
+        if len(customers) != 0:
+            customer = customers[0]
+
+        if request.method == "GET":
+            if customer is not None:
+                return render(request, 'customer_profile.html', {'edit': True, 'customer': customer})
+            else:
+                return render(request, 'customer_profile.html', {'edit': False})
+
+        else:
+            if "save_profile" in request.POST:
+                customer = Customer()
+
+            customer.name = request.POST.get('name')
+            customer.surname = request.POST.get('surname')
+            customer.dni = request.POST.get('dni')
+            customer.mail = request.POST.get('mail')
+            customer.birth_date = request.POST.get('birth_date')
+            customer.image_url = request.POST.get('image')
+            customer.user = logged_user
+            customer.save()
+
+            return render(request, 'customer_profile.html', {'edit': True, 'customer': customer, 'modified': True})
+
+
+def buy(request):
+    session_cart = {}
+
+    if 'cart' in request.session:
+        session_cart = request.session.get('cart', {})
+
+    id_logged_user = request.user.id
+    customers = Customer.objects.filter(user_id=id_logged_user)
+
+    if len(customers) != 0:
+        customer = customers[0]
+        order = Order()
+        order.code = "CO-" + str(int(round(time.time() * 1000)))
+        order.date = datetime.date.today()
+        order.customer = customer
+        order.save()
+
+        for k in session_cart.keys():
+            order_line = OrderLine()
+            order_line.item = Item.objects.get(id=k)
+            order_line.amount = session_cart.get(k)
+            order_line.purchase_price = order_line.item.price
+            order_line.save()
+            order.order_lines.add(order_line)
+
+
+
+        #vaciamos el carrito
+        request.session.pop('cart')
+
+        return redirect('home_page')
+
+    return redirect('show_cart')
+
 
 
 
