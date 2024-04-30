@@ -1,0 +1,35 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+            <h1> JUEGO DEL TRILERO</h1>
+
+            {% if not inicio %}
+                {% if ganador %}
+                    <p> ¡HAS GANADO!</p>
+
+                {% else %}
+                    <p> ¡HAS PERDIDO!</p>
+                {% endif %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                {% for vaso in vasos %}
+
+                    <div>
+                        <input style="background: {{ vaso.color }}" type="submit" name="seleccion"
+                               value="{{ vaso.color }}">
+                    </div>
+
+                {% endfor %}
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% include "footeer.html" %}

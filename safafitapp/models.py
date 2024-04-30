@@ -47,8 +47,6 @@ class User(AbstractBaseUser):
         return self.username
 
 
-
-
 class Size(models.Model):
     name = models.CharField(max_length=2)
     measures = models.CharField(max_length=600)
@@ -75,7 +73,7 @@ class Customer(models.Model):
     dni = models.CharField(max_length=9)
     mail = models.CharField(max_length=500)
     image_url = models.CharField(max_length=900)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, default= None)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None)
 
     def __str__(self):
         return str(self.id) + " - " + self.name + " , " + self.surname
@@ -121,3 +119,10 @@ class Employee(models.Model):
         return str(self.id) + " - " + self.fullname
 
 
+class Vaso(models.Model):
+    color = models.CharField(max_length=500)
+    posicion = models.IntegerField(null=False)
+    premiado = models.BooleanField(null=False)
+
+    def __str__(self):
+        return str(self.color)

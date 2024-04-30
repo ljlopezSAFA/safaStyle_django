@@ -1,4 +1,5 @@
 import datetime
+import random
 import time
 
 from django.contrib.auth import authenticate, login, logout
@@ -311,5 +312,28 @@ def buy(request):
     return redirect('show_cart')
 
 
+
+def start_game(request):
+
+    if request.method == "GET":
+        lista_vasos = Vaso.objects.all()
+        vaso_premiado = random.randint(1, 4)
+        for vaso in lista_vasos:
+            if vaso.id == vaso_premiado:
+                vaso.premiado = True
+            else:
+                vaso.premiado = False
+            vaso.save()
+    else:
+        value = request.POST["seleccion"]
+        vaso_seleccionado = Vaso.objects.get(color=value)
+
+        if vaso_seleccionado.premiado:
+            return render(request, 'game.html', {"ganador": True})
+        else:
+            return render(request, 'game.html', {"ganador": False})
+
+
+    return render(request, 'game.html', {'vasos': lista_vasos, 'inicio': True})
 
 

@@ -22,6 +22,8 @@ urlpatterns = [
     path('cart/add/<int:id>', add_to_cart, name='add_to_cart'),
     path('show/cart', show_cart, name='show_cart'),
     path('customer/profile', customer_profile, name='customer_profile'),
-    path('buy/', buy, name='buy')
+    path('buy/', buy, name='buy'),
+    # path('my_orders/', my_order, name='my_order')
+    path('game/', start_game, name='game')
 
 ]
