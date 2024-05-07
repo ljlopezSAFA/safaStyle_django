@@ -201,6 +201,10 @@ def create_employee_user(request, id):
         user.password = make_password(employee.dni)
         user.rol = Role.EMPLOYEE
         user.save()
+
+        employee.user = user
+        employee.save()
+
         return redirect('login')
     else:
         return redirect('list_employees')
@@ -302,9 +306,7 @@ def buy(request):
             order_line.save()
             order.order_lines.add(order_line)
 
-
-
-        #vaciamos el carrito
+        # vaciamos el carrito
         request.session.pop('cart')
 
         return redirect('home_page')
@@ -312,9 +314,7 @@ def buy(request):
     return redirect('show_cart')
 
 
-
 def start_game(request):
-
     if request.method == "GET":
         lista_vasos = Vaso.objects.all()
         vaso_premiado = random.randint(1, 4)
@@ -333,7 +333,4 @@ def start_game(request):
         else:
             return render(request, 'game.html', {"ganador": False})
 
-
     return render(request, 'game.html', {'vasos': lista_vasos, 'inicio': True})
-
-
