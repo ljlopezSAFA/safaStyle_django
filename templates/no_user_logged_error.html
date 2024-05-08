@@ -1,0 +1,20 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half is-align-items-center is-justify-content-center  is-flex ">
+            <h1 class="title has-text-danger">¡Para acceder a este sitio debes logeart!</h1>
+        </div>
+    </div>
+
+    <div class="columns is-mobile is-centered">
+
+        <div class="column is-half is-align-items-center is-justify-content-center is-flex ">
+            <a href="{% url 'login'%}"> Ir a Login</a>
+        </div>
+    </div>
+{% endblock content %}
+
+{% include "footeer.html" %}

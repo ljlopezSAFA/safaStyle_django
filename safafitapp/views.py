@@ -214,6 +214,10 @@ def permision_error_page(request):
     return render(request, 'permision_error.html')
 
 
+def no_user_logged(request):
+    return render(request, 'no_user_logged_error.html')
+
+
 def add_to_cart(request, id):
     cart = {}
 
@@ -314,6 +318,7 @@ def buy(request):
     return redirect('show_cart')
 
 
+@check_user_role('ADMIN')
 def start_game(request):
     if request.method == "GET":
         lista_vasos = Vaso.objects.all()

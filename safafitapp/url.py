@@ -24,6 +24,7 @@ urlpatterns = [
     path('customer/profile', customer_profile, name='customer_profile'),
     path('buy/', buy, name='buy'),
     # path('my_orders/', my_order, name='my_order')
-    path('game/', start_game, name='game')
+    path('game/', start_game, name='game'),
+    path('no_user_logged_error/', no_user_logged, name ="no_user_logged_error")
 
 ]
