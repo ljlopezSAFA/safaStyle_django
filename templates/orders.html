@@ -1,0 +1,75 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+
+    <div class="columns is-mobile">
+        <div class="column is-half is-offset-one-quarter"
+             style="justify-content: center;  align-items:  center; display: flex;">
+            <table class="table">
+
+                <thead>
+
+                <tr>
+                    <th>Code</th>
+                    <th>Date</th>
+                    <th>Cost</th>
+                    <th></th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                {% for o in orders %}
+
+                    <tr>
+
+                        <td>
+                            {{ o.code  }}
+                        </td>
+                        <td>
+                            {{ o.date }}
+                        </td>
+                        <td>
+                           {{ o.cost }}
+                        </td>
+
+                        <td>
+                           <a href="{% url 'order_detail' id=o.id %}" class="has-text-dark">
+                                <span class="icon">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+
+
+                {% endfor %}
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% include "footeer.html" %}

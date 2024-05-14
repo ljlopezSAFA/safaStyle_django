@@ -1,0 +1,78 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+
+    <div class="columns is-mobile">
+        <div class="column is-half is-offset-one-quarter"
+             style="justify-content: center;  align-items:  center; display: flex;">
+            <table class="table">
+
+                <thead>
+
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                {% for ol in order.order_lines.all %}
+
+                    <tr>
+                        <td>
+                            <figure class="image is-32x32">
+                                <img class="is-rounded" src="{{ ol.item.image }}" alt="">
+                            </figure>
+                        </td>
+                        <td>
+                            {{ ol.item.name }} - {{ ol.item.size }}
+                        </td>
+                        <td>
+                            {{ ol.amount }}
+                        </td>
+                        <td>
+                            {{ ol.item.price }}
+                        </td>
+                    </tr>
+
+
+                {% endfor %}
+
+                <tr>
+                    <td></td>
+                    <td><b>TOTAL</b></td>
+                    <td></td>
+                    <td>
+                        <b>{{ order.cost }}</b>
+                    </td>
+                </tr>
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
+
+
+{% include "footeer.html" %}

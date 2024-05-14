@@ -1,12 +1,14 @@
 import datetime
 import random
 import time
-
+import plotly.express as px
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
-from .models import *
+from django.db.models import ExpressionWrapper, F, FloatField, Sum, Count
+from django.shortcuts import render
+
 from .decorators import *
+from .models import *
 
 
 # Create your views here.
@@ -339,3 +341,45 @@ def start_game(request):
             return render(request, 'game.html', {"ganador": False})
 
     return render(request, 'game.html', {'vasos': lista_vasos, 'inicio': True})
+
+
+@check_user_role('CUSTOMER')
+def my_orders(request):
+    usuario_logueado = User.objects.get(id=request.user.id)
+    cliente_usuario_logueado = Customer.objects.get(user=usuario_logueado)
+    pedidos_cliente = Order.objects.filter(customer=cliente_usuario_logueado).annotate(
+        cost=Sum(
+            ExpressionWrapper(
+                F('order_lines__amount') * F('order_lines__item__price'),
+                output_field=FloatField()
+            )
+        ))
+
+    return render(request, 'orders.html', {'orders': pedidos_cliente})
+
+
+@check_user_role('CUSTOMER')
+def order_detail(request, id):
+    order = Order.objects.filter(id=id).annotate(
+        cost=Sum(
+            ExpressionWrapper(
+                F('order_lines__amount') * F('order_lines__item__price'),
+                output_field=FloatField()
+            )
+        ))
+
+    return render(request, 'order_detail.html', {'order': order[0]})
+
+
+def stadistics(request):
+    customers_with_order_count = Customer.objects.annotate(orders_count=Count('order'))
+
+    names = [f"{customer.name} {customer.surname}" for customer in customers_with_order_count]
+    orders_count = [customer.orders_count for customer in customers_with_order_count]
+
+    fig = px.bar(x=names, y=orders_count)
+    fig.show()
+
+
+
+
