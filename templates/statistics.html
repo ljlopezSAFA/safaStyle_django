@@ -8,16 +8,17 @@
 
             <div class="columns" style="padding-top: 30px;">
                 <div class="column">
-                    <a href="{% url 'customer_statistics' %}" class="has-text-dark">
+                    <a href="{% url 'statistic_customer_order' %}" class="has-text-dark">
                         <div class="card" style="width: 18rem;">
-                            <h5 class="card-title has-text-centered">Customer Statistics</h5>
+                            <h5 class="card-title has-text-centered">Orders by Customer</h5>
                             <div class="card-body">
 
                                 <div class="is-justify-content-center is-align-content-center is-flex">
 
-                                <span class="icon is-large">
-                                    <i class="fa  fa-user"></i>
-                                </span>
+                                    <span class="icon is-large">
+                                         <i class="fas fa-shopping-cart"></i>
+                                         <i class="fa  fa-user" style="padding-left: 5px"></i>
+                                    </span>
 
                                 </div>
                             </div>
@@ -27,16 +28,17 @@
 
 
                 <div class="column">
-                    <a href="{% url 'customer_statistics' %}" class="has-text-dark">
+                    <a href="{% url 'statistic_customer_spent' %}" class="has-text-dark">
                         <div class="card" style="width: 18rem;">
-                            <h5 class="card-title has-text-centered">Customer Statistics</h5>
+                            <h5 class="card-title has-text-centered"> Spent money by Customer</h5>
                             <div class="card-body">
 
                                 <div class="is-justify-content-center is-align-content-center is-flex">
 
-                                <span class="icon is-large">
-                                    <i class="fa  fa-user"></i>
-                                </span>
+                                    <span class="icon is-large">
+                                        <i class="fa fa-solid fa-dollar-sign"></i>
+                                        <i class="fa  fa-user" style="padding-left: 5px"> </i>
+                                    </span>
 
                                 </div>
                             </div>
@@ -45,9 +47,32 @@
                 </div>
             </div>
 
+            <div class="columns" style="padding-top: 30px;">
 
+                <div class="column">
+                    <a href="{% url 'statistic_item_bought' %}" class="has-text-dark">
+                        <div class="card" style="width: 18rem;">
+                            <h5 class="card-title has-text-centered"> Spent money by Customer</h5>
+                            <div class="card-body">
+
+                                <div class="is-justify-content-center is-align-content-center is-flex">
+
+                                    <span class="icon is-large">
+                                        <i class="fas fa-socks"></i>
+                                         <i class="fas fa-shopping-cart" style="padding-left: 5px"></i>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+
+
+
 {% endblock content %}
 
 

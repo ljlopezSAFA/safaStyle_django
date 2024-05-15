@@ -24,11 +24,12 @@ urlpatterns = [
     path('customer/profile', customer_profile, name='customer_profile'),
     path('buy/', buy, name='buy'),
     path('game/', start_game, name='game'),
-    path('no_user_logged_error/', no_user_logged, name ="no_user_logged_error"),
+    path('no_user_logged_error/', no_user_logged, name="no_user_logged_error"),
     path('my_orders/', my_orders, name='my_order'),
     path('order_detail/<int:id>', order_detail, name='order_detail'),
     path('statistics/', stadistics, name='statistics'),
-    path('customer_statistics/', orders_by_customer, name='customer_statistics'),
-
+    path('statistic_customer_order/', orders_by_customer, name='statistic_customer_order'),
+    path('statistic_customer_spent/', spent_by_customer, name='statistic_customer_spent'),
+    path('statistic_product_bought/', top_bought_items, name='statistic_item_bought')
 
 ]

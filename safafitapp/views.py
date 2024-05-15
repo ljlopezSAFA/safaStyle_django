@@ -4,6 +4,7 @@ import time
 import plotly.graph_objs as go
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
+from django.db import connection
 from django.db.models import ExpressionWrapper, F, FloatField, Sum, Count
 from django.shortcuts import render
 
@@ -376,8 +377,6 @@ def stadistics(request):
     return render(request, "statistics.html")
 
 
-
-
 def orders_by_customer(request):
     customers_with_order_count = Customer.objects.annotate(orders_count=Count('order'))
 
@@ -398,4 +397,87 @@ def orders_by_customer(request):
     return render(request, "customer_statistics.html")
 
 
+def spent_by_customer(request):
+    customers_with_order_total = Customer.objects.annotate(
+        cost=Sum(
+            ExpressionWrapper(
+                F('order__order_lines__amount') * F('order__order_lines__item__price'),
+                output_field=FloatField()
+            )
+        ))
 
+    names = [f"{customer.name} {customer.surname}" for customer in customers_with_order_total]
+    cost = [customer.cost for customer in customers_with_order_total]
+
+    # Crear el gráfico
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=names, y=cost))
+
+    # Configuraciones adicionales (títulos, ejes, etc.)
+    fig.update_layout(title='Compras por cliente', xaxis_title='Clientes', yaxis_title='Total Gastado')
+
+    # Guardar el gráfico como un archivo HTML
+    plotly_html_path = str(settings.TEMPLATES[0]['DIRS'][0]) + "/user_statistics.html"
+    fig.write_html(plotly_html_path)
+
+    return render(request, "customer_statistics.html")
+
+
+def bought_items(request):
+    customers_with_order_total = Customer.objects.annotate(
+        cost=Sum(
+            ExpressionWrapper(
+                F('order__order_lines__amount') * F('order__order_lines__item__price'),
+                output_field=FloatField()
+            )
+        ))
+
+    names = [f"{customer.name} {customer.surname}" for customer in customers_with_order_total]
+    cost = [customer.cost for customer in customers_with_order_total]
+
+    # Crear el gráfico
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=names, y=cost))
+
+    # Configuraciones adicionales (títulos, ejes, etc.)
+    fig.update_layout(title='Compras por cliente', xaxis_title='Clientes', yaxis_title='Total Gastado')
+
+    # Guardar el gráfico como un archivo HTML
+    plotly_html_path = str(settings.TEMPLATES[0]['DIRS'][0]) + "/user_statistics.html"
+    fig.write_html(plotly_html_path)
+
+    return render(request, "customer_statistics.html")
+
+
+def top_bought_items(request):
+
+    consulta = 'select si.name, CAST(SUM(so.amount) AS DOUBLE) / ' \
+               ' CAST((SELECT SUM(o.amount) FROM safafitapp_orderline o) AS DOUBLE) AS total ' \
+               'from safafitapp_order o ' \
+               'join safafitapp_order_order_lines sool on o.id = sool.order_id ' \
+               'join safafitapp_orderline so on sool.orderline_id = so.id ' \
+               'join safafitapp_item si on so.item_id = si.id ' \
+               'group by si.id '
+
+    resultados = []
+
+    # Ejecutar la consulta SQL
+    with connection.cursor() as cursor:
+        cursor.execute(consulta)
+        resultados = cursor.fetchall()
+
+    productos = [r[0] for r in resultados]
+    veces_comprado = [r[1] for r in resultados]
+
+    # Crear el gráfico
+    fig = go.Figure()
+    fig.add_trace(go.Pie(labels=productos, values=veces_comprado))
+
+    # Configuraciones adicionales (títulos, ejes, etc.)
+    fig.update_layout(title='Porcentaje de compra de producos')
+
+    # Guardar el gráfico como un archivo HTML
+    plotly_html_path = str(settings.TEMPLATES[0]['DIRS'][0]) + "/user_statistics.html"
+    fig.write_html(plotly_html_path)
+
+    return render(request, "customer_statistics.html")
