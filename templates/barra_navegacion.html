@@ -9,6 +9,9 @@
         {% font_awesome %}
         <link rel="stylesheet" href="{% static 'bulma/css/style.min.css' %}">
         <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <!-- CDN de Plotly y D3.js -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
         {% block extra_css %}{% endblock extra_css %}
 
     {% endblock css %}
@@ -144,7 +147,7 @@
                                 </span>
                                 Customer Profile
                             </a>
-                             <a class="navbar-item" href="{% url 'my_order' %}">
+                            <a class="navbar-item" href="{% url 'my_order' %}">
                                 <span class="icon is-large">
                                  <i class="fas fa-box"></i>
                                 </span>

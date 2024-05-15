@@ -1,0 +1,54 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+
+            <div class="columns" style="padding-top: 30px;">
+                <div class="column">
+                    <a href="{% url 'customer_statistics' %}" class="has-text-dark">
+                        <div class="card" style="width: 18rem;">
+                            <h5 class="card-title has-text-centered">Customer Statistics</h5>
+                            <div class="card-body">
+
+                                <div class="is-justify-content-center is-align-content-center is-flex">
+
+                                <span class="icon is-large">
+                                    <i class="fa  fa-user"></i>
+                                </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="column">
+                    <a href="{% url 'customer_statistics' %}" class="has-text-dark">
+                        <div class="card" style="width: 18rem;">
+                            <h5 class="card-title has-text-centered">Customer Statistics</h5>
+                            <div class="card-body">
+
+                                <div class="is-justify-content-center is-align-content-center is-flex">
+
+                                <span class="icon is-large">
+                                    <i class="fa  fa-user"></i>
+                                </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% include "footeer.html" %}

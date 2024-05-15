@@ -1,12 +1,13 @@
 import datetime
 import random
 import time
-import plotly.express as px
+import plotly.graph_objs as go
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.db.models import ExpressionWrapper, F, FloatField, Sum, Count
 from django.shortcuts import render
 
+from safafit import settings
 from .decorators import *
 from .models import *
 
@@ -372,14 +373,29 @@ def order_detail(request, id):
 
 
 def stadistics(request):
+    return render(request, "statistics.html")
+
+
+
+
+def orders_by_customer(request):
     customers_with_order_count = Customer.objects.annotate(orders_count=Count('order'))
 
     names = [f"{customer.name} {customer.surname}" for customer in customers_with_order_count]
     orders_count = [customer.orders_count for customer in customers_with_order_count]
 
-    fig = px.bar(x=names, y=orders_count)
-    fig.show()
+    # Crear el gráfico
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=names, y=orders_count))
 
+    # Configuraciones adicionales (títulos, ejes, etc.)
+    fig.update_layout(title='Compras por cliente', xaxis_title='Clientes', yaxis_title='Número de compras')
+
+    # Guardar el gráfico como un archivo HTML
+    plotly_html_path = str(settings.TEMPLATES[0]['DIRS'][0]) + "/user_statistics.html"
+    fig.write_html(plotly_html_path)
+
+    return render(request, "customer_statistics.html")
 
 
 

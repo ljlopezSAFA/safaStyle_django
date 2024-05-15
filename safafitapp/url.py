@@ -28,6 +28,7 @@ urlpatterns = [
     path('my_orders/', my_orders, name='my_order'),
     path('order_detail/<int:id>', order_detail, name='order_detail'),
     path('statistics/', stadistics, name='statistics'),
+    path('customer_statistics/', orders_by_customer, name='customer_statistics'),
 
 
 ]
