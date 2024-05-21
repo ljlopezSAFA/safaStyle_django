@@ -490,20 +490,20 @@ def chat_gpt_request(request):
     if request.method == 'GET':
         return render(request, 'chat_bot.html')
     else:
-        encoded_api_key = settings.CHAT_GPT_API_KEY
-        decoded_api_key = base64.b64decode(encoded_api_key.encode('utf-8')).decode('utf-8')
-        openai.api_key = decoded_api_key
+        # encoded_api_key = settings.CHAT_GPT_API_KEY
+        # decoded_api_key = base64.b64decode(encoded_api_key.encode('utf-8')).decode('utf-8')
+        # openai.api_key = decoded_api_key
+        #
+        # response = openai.Completion.create(
+        #     model="gpt-3.5-turbo",
+        #     prompt=request.POST.get('prompt'),
+        #     max_tokens=150,
+        #     temperature=0.9,
+        #     n=1,
+        #     stop=None
+        # )
 
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo",
-            prompt=request.POST.get('prompt'),
-            max_tokens=150,
-            temperature=0.9,
-            n=1,
-            stop=None
-        )
-
-        answer = response.choices[0].text.strip()
-        return render(request, 'chat_bot.html', {'answer': answer})
+        # answer = response.choices[0].text.strip()
+        return render(request, 'chat_bot.html', {'answer': ''})
 
 
