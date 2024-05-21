@@ -30,6 +30,7 @@ urlpatterns = [
     path('statistics/', stadistics, name='statistics'),
     path('statistic_customer_order/', orders_by_customer, name='statistic_customer_order'),
     path('statistic_customer_spent/', spent_by_customer, name='statistic_customer_spent'),
-    path('statistic_product_bought/', top_bought_items, name='statistic_item_bought')
+    path('statistic_product_bought/', top_bought_items, name='statistic_item_bought'),
+    path('chat_bot/', chat_gpt_request, name='chat_bot')
 
 ]

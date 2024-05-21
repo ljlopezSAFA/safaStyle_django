@@ -132,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'safafitapp.User'
 
+API_KEY_GPT = 'sk-proj-8YurtKtF6rFOtFmasXUvT3BlbkFJEfg7tUVazqUpzsgszLFp'
+CHAT_GPT_API_KEY = 'c2stcHJvai04WXVydEt0RjZyRk90Rm1hc1hVdlQzQmxia0ZKRWZnN3RVVmF6cVVwenNnc3pMRnA='

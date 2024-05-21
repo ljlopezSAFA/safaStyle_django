@@ -1,16 +1,19 @@
 import datetime
 import random
 import time
+import openai
+import base64
 import plotly.graph_objs as go
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.db import connection
 from django.db.models import ExpressionWrapper, F, FloatField, Sum, Count
 from django.shortcuts import render
-
 from safafit import settings
 from .decorators import *
 from .models import *
+from django.conf import settings
 
 
 # Create your views here.
@@ -450,7 +453,6 @@ def bought_items(request):
 
 
 def top_bought_items(request):
-
     consulta = 'select si.name, CAST(SUM(so.amount) AS DOUBLE) / ' \
                ' CAST((SELECT SUM(o.amount) FROM safafitapp_orderline o) AS DOUBLE) AS total ' \
                'from safafitapp_order o ' \
@@ -481,3 +483,27 @@ def top_bought_items(request):
     fig.write_html(plotly_html_path)
 
     return render(request, "customer_statistics.html")
+
+
+def chat_gpt_request(request):
+
+    if request.method == 'GET':
+        return render(request, 'chat_bot.html')
+    else:
+        encoded_api_key = settings.CHAT_GPT_API_KEY
+        decoded_api_key = base64.b64decode(encoded_api_key.encode('utf-8')).decode('utf-8')
+        openai.api_key = decoded_api_key
+
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo",
+            prompt=request.POST.get('prompt'),
+            max_tokens=150,
+            temperature=0.9,
+            n=1,
+            stop=None
+        )
+
+        answer = response.choices[0].text.strip()
+        return render(request, 'chat_bot.html', {'answer': answer})
+
+

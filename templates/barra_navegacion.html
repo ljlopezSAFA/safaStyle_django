@@ -91,6 +91,12 @@
                                 <a class="navbar-item" href="{% url 'statistics' %}">
                                     Statistics
                                 </a>
+                                <a class="navbar-item" href="{% url 'shops' %}">
+                                    Shops
+                                </a>
+                                 <a class="navbar-item" href="{% url 'list_employees' %}">
+                                    Employees
+                                </a>
                             </div>
                         </div>
 
@@ -126,16 +132,13 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 {% if user.is_authenticated %}
-                    {% if user.rol == 'ADMIN' %}
-                        <a class="navbar-item" href="{% url 'shops' %}">
-                            Shops
-                        </a>
-                    {% endif %}
-                    <a class="navbar-item" href="{% url 'show_cart' %}">
+                    {% if user.rol == 'CUSTOMER' %}
+                        <a class="navbar-item" href="{% url 'show_cart' %}">
                               <span class="icon is-large">
                                   <i class="fas fa-shopping-cart"></i>
                                 </span>
-                    </a>
+                        </a>
+                    {% endif %}
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                               <span class="icon is-large">
@@ -144,18 +147,20 @@
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{% url 'customer_profile' %}">
+                            {% if user.rol == 'CUSTOMER' %}
+                                <a class="navbar-item" href="{% url 'customer_profile' %}">
                                 <span class="icon is-large">
                                   <i class="fas fa-address-card"></i>
                                 </span>
-                                Customer Profile
-                            </a>
-                            <a class="navbar-item" href="{% url 'my_order' %}">
+                                    Customer Profile
+                                </a>
+                                <a class="navbar-item" href="{% url 'my_order' %}">
                                 <span class="icon is-large">
                                  <i class="fas fa-box"></i>
                                 </span>
-                                My Orders
-                            </a>
+                                    My Orders
+                                </a>
+                            {% endif %}
                             <a class="navbar-item" href="{% url 'logout' %}">
                                  <span class="icon is-large">
                                   <i class="fas fa-arrow-right"></i>

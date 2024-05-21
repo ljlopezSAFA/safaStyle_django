@@ -1,0 +1,41 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+            <h1 class="title"> CHAT BOT</h1>
+              <form action="" method="post">
+
+                {% csrf_token %}
+
+
+                <div class="columns is-multiline is-mobile">
+                    <div class="column is-one-quarter has-text-centered">
+                        <label for="prompt" class="subtitle is-5">Ask Something...</label>
+                    </div>
+                    <div class="column">
+                        <input id="prompt" name="prompt" type="text" class="input" placeholder="" value="">
+                    </div>
+                </div>
+
+
+                <div class="columns is-mobile is-centered">
+                    <input class="button is-rounded is-info is-light" type="submit" value="Ask">
+                </div>
+
+
+            </form>
+
+            <label>
+                <textarea class="textarea" name="answer" placeholder="">{{ answer }}</textarea>
+            </label>
+
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+{% include "footeer.html" %}
