@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -126,3 +127,13 @@ class Vaso(models.Model):
 
     def __str__(self):
         return str(self.color)
+
+
+class Review(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.CharField(max_length=250)
+
+    def __str__(self):
+        return str(self.comment) + str(self.rating)

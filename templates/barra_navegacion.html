@@ -12,6 +12,7 @@
         <!-- CDN de Plotly y D3.js -->
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         {% block extra_css %}{% endblock extra_css %}
 
     {% endblock css %}
@@ -94,7 +95,7 @@
                                 <a class="navbar-item" href="{% url 'shops' %}">
                                     Shops
                                 </a>
-                                 <a class="navbar-item" href="{% url 'list_employees' %}">
+                                <a class="navbar-item" href="{% url 'list_employees' %}">
                                     Employees
                                 </a>
                             </div>
@@ -185,6 +186,39 @@
     </nav>
 
 {% endblock header %}
+
+{% block body %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // Configuración opcional de Toastr
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+
+      {% if messages %}
+        <script>
+            {% for message in messages %}
+                toastr["{{ message.tags }}"]("{{ message }}")
+            {% endfor %}
+        </script>
+    {% endif %}
+{% endblock %}
 
 
 </html>

@@ -1,0 +1,90 @@
+{% include "barra_navegacion.html" %}
+{% load static %}
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+    <p class="title is-2">New Review</p>
+</div>
+
+<br><br>
+
+
+<div class="columns is-mobile is-centered">
+
+    <div class="columns">
+        {% for r in revs %}
+
+            <div class="column">
+
+                <div class="card">
+
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNVi9cbmMkUabLiF_3kfI94qngwPIM4gnrztEUv6Hopw&s"
+                                            alt="Placeholder image"
+                                    />
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4">{{ r.customer.name }} , {{ r.customer.surname }}</p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            {{ r.comment }}
+
+                            <p>{{ r.rating }} ✰</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {% endfor %}
+    </div>
+</div>
+
+<div class="columns is-mobile is-centered" style="margin-top: 100px">
+
+    <div class="column is-half">
+
+
+        <form action="" method="post">
+
+            {% csrf_token %}
+
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="comment" class="subtitle is-5"> Comment</label>
+                </div>
+                <div class="column">
+                    <input id="comment" name="comment" type="text" class="input" placeholder="">
+                </div>
+            </div>
+
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-one-quarter has-text-centered">
+                    <label for="rating" class="subtitle is-5"> Rating</label>
+                </div>
+                <div class="column">
+                    <input id="rating" name="rating" type="number" cla
+                           ss="input" placeholder="">
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div class="columns is-mobile is-centered">
+                <input class="button is-rounded is-info is-light" type="submit" value="Save Review">
+            </div>
+
+
+        </form>
+    </div>
+</div>

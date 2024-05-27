@@ -1,19 +1,19 @@
 import datetime
 import random
 import time
-import openai
-import base64
-import plotly.graph_objs as go
 
+import plotly.graph_objs as go
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.db import connection
 from django.db.models import ExpressionWrapper, F, FloatField, Sum, Count
 from django.shortcuts import render
+
 from safafit import settings
 from .decorators import *
 from .models import *
-from django.conf import settings
 
 
 # Create your views here.
@@ -183,6 +183,7 @@ def do_login(request):
         if user is not None:
             login(request, user)
 
+            messages.info(request, 'Login successful')
             # Redirección tras un login exitoso
             return redirect('home_page')
         else:
@@ -240,6 +241,7 @@ def add_to_cart(request, id):
 
     request.session["cart"] = cart
 
+    messages.info(request, 'Product added to cart successfully ')
     return redirect('items')
 
 
@@ -289,6 +291,7 @@ def customer_profile(request):
             customer.user = logged_user
             customer.save()
 
+            messages.info(request, 'Profile modified correctly')
             return render(request, 'customer_profile.html', {'edit': True, 'customer': customer, 'modified': True})
 
 
@@ -486,7 +489,6 @@ def top_bought_items(request):
 
 
 def chat_gpt_request(request):
-
     if request.method == 'GET':
         return render(request, 'chat_bot.html')
     else:
@@ -505,5 +507,25 @@ def chat_gpt_request(request):
 
         # answer = response.choices[0].text.strip()
         return render(request, 'chat_bot.html', {'answer': ''})
+
+
+def review_item(request, id):
+    if request.method == 'GET':
+        list_reviews = Review.objects.filter(item_id=id)
+        return render(request, 'newReview.html', {'revs': list_reviews})
+    else:
+        comment = request.POST.get('comment')
+        rating = request.POST.get('rating')
+        item = Item.objects.get(id=id)
+        customer = Customer.objects.get(user_id=request.user.id)
+
+        new_review = Review()
+        new_review.rating = rating
+        new_review.comment = comment
+        new_review.item = item
+        new_review.customer = customer
+        new_review.save()
+
+        return redirect('items')
 
 
